@@ -7,9 +7,9 @@ def simulate_sensor_data():
     Returns:
         dict: Dictionary containing random values for keys 'temperature', 'ph', and 'nitrate'.
     """
-    temperature = round(random.uniform(20, 30), 2)
-    ph = round(random.uniform(6.0, 8.5), 2)
-    nitrate = round(random.uniform(0, 50), 2)
+    temperature = float(input("Podaj temperature: "))
+    ph = float(input("Podaj pH: "))
+    nitrate = float(input("Podaj poziom nitratu: "))
     return {'temperature': temperature, 'ph': ph, 'nitrate': nitrate}
 
 # Safety thresholds for different aquarium types
