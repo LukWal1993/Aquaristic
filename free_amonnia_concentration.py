@@ -1,6 +1,4 @@
 import math
-
-
 def calculate_free_ammonia(pH, total_ammonium, temperature=25):
     """
     Calculate the amount of free ammonia (NH3) in water based on pH, 
@@ -30,34 +28,44 @@ def main():
     print("Welcome to the Free Ammonia (NH3) Calculator!")
     print("This program calculates the amount of free ammonia in water based on pH and total ammonium concentration.")
 
-    try:
-        # Input water parameters
-        pH = float(input("Enter the pH of the water: "))
-        if not (0 <= pH <= 14):
-            print("pH must be between 0 and 14.")
-            return
+    while True:
+        try:
+            # Input water parameters with validation
+            pH = float(input("Enter the pH of the water (0-14): "))
+            if 0 <= pH <= 14:
+                break
+            else:
+                print("Error: pH must be between 0 and 14. Try again.")
+        except ValueError:
+            print("Error: Please enter a valid number for pH.")
 
-        total_ammonium = float(
-            input("Enter total ammonium concentration (mg/L): "))
-        if total_ammonium < 0:
-            print("Ammonium concentration must be a non-negative value.")
-            return
+    while True:
+        try:
+            total_ammonium = float(input("Enter total ammonium concentration (mg/L, non-negative): "))
+            if total_ammonium >= 0:
+                break
+            else:
+                print("Error: Ammonium concentration must be non-negative. Try again.")
+        except ValueError:
+            print("Error: Please enter a valid number for ammonium concentration.")
 
-        temperature = float(
-            input("Enter the water temperature (°C, default is 25): ") or 25)
-        if temperature < 0:
-            print("Temperature must be a non-negative value.")
-            return
-        if temperature >= 100:
-            print("Temperature must be lover than boiling point")
+    while True:
+        try:
+            temperature_input = input("Enter the water temperature (°C, default is 25): ")
+            temperature = float(temperature_input) if temperature_input else 25
+            if 0 <= temperature < 100:
+                break
+            elif temperature < 0:
+                print("Error: Temperature must be non-negative. Try again.")
+            else:
+                print("Error: Temperature must be lower than the boiling point (100°C). Try again.")
+        except ValueError:
+            print("Error: Please enter a valid number for temperature.")
 
-        # Calculate free ammonia
-        free_ammonia = calculate_free_ammonia(pH, total_ammonium, temperature)
-        print(f"\nResults:")
-        print(f"Free Ammonia (NH3) concentration: {free_ammonia:.3f} mg/L")
-
-    except ValueError:
-        print("Invalid input. Please enter numerical values.")
+    # Calculate free ammonia
+    free_ammonia = calculate_free_ammonia(pH, total_ammonium, temperature)
+    print(f"\nResults:")
+    print(f"Free Ammonia (NH3) concentration: {free_ammonia:.3f} mg/L")
 
 
 # Run the program
